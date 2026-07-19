@@ -11,13 +11,28 @@ def fish_forecast(weather, tides=None):
         score -= 15
         reasons.append("❌ Слишком тепло")
 
-    # Скорость ветра
-    if 2 <= weather["wind_speed"] <= 7:
-        score += 15
-        reasons.append("✅ Умеренный ветер")
-    elif weather["wind_speed"] > 12:
-        score -= 20
-        reasons.append("❌ Сильный ветер")
+    # Давление
+if 1008 <= weather["pressure"] <= 1022:
+    score += 8
+
+elif weather["pressure"] < 995:
+    score -= 10
+
+# Влажность
+if weather["humidity"] > 80:
+    score += 3
+
+elif weather["humidity"] < 45:
+    score -= 3
+
+# Скорость ветра
+if 2 <= weather["wind_speed"] <= 7:
+    score += 15
+    reasons.append("✅ Умеренный ветер")
+
+elif weather["wind_speed"] > 12:
+    score -= 20
+    reasons.append("❌ Сильный ветер")
 
     # Порывы
     if weather["wind_gust"] > 15:
@@ -73,8 +88,6 @@ def fish_forecast(weather, tides=None):
         f"📈 Днём: {weather['temp_max']:.1f}°C\n"
         f"📉 Ночью: {weather['temp_min']:.1f}°C\n\n"
         f"{weather['weather']}\n\n"
-        f"💧 Влажность: {weather['humidity']}%\n"
-        f"📊 Давление: {weather['pressure']} гПа\n\n"
         f"💨 Ветер: {weather['wind_speed']:.1f} м/с\n"
         f"🌬 Порывы: {weather['wind_gust']:.1f} м/с\n"
         f"🧭 Направление: {weather['wind_direction']}\n\n"
