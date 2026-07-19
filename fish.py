@@ -1,5 +1,6 @@
-def fish_forecast(weather, tides=None):
+from datetime import datetime
 
+def fish_forecast(weather, tides=None): 
     score = 50
     reasons = []
 
