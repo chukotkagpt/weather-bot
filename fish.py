@@ -83,24 +83,34 @@ def fish_forecast(weather, tides=None):
 
     # Формируем сообщение
     text = (
-        f"🌅 Доброе утро!\n\n"
-        f"📍 Певек\n\n"
-        f"🌡 Сейчас: {weather['temp_now']:.1f}°C\n"
-        f"📈 Днём: {weather['temp_max']:.1f}°C\n"
-        f"📉 Ночью: {weather['temp_min']:.1f}°C\n\n"
+    f"🌅 Доброе утро!\n\n"
 
-        f"{weather['weather']}\n\n"
+    f"📍 Певек\n"
+    f"📅 {datetime.now().strftime('%d.%m.%Y')}\n\n"
 
-        f"💨 Ветер: {weather['wind_speed']:.1f} м/с\n"
-        f"🌬 Порывы: {weather['wind_gust']:.1f} м/с\n"
-        f"🧭 Направление: {weather['wind_direction']}\n\n"
+    f"━━━━━━━━━━━━━━━━━━\n"
+    f"🌤 ПОГОДА\n"
+    f"━━━━━━━━━━━━━━━━━━\n\n"
 
-        f"🎣 Морской голец\n"
-        f"{level} ({score}/100)\n\n"
-    )
+    f"🌡 Сейчас: {weather['temp_now']:.1f}°C\n"
+    f"📈 Днём: {weather['temp_max']:.1f}°C\n"
+    f"📉 Ночью: {weather['temp_min']:.1f}°C\n\n"
+
+    f"{weather['weather']}\n\n"
+
+    f"💨 Ветер: {weather['wind_speed']:.1f} м/с\n"
+    f"🌬 Порывы: {weather['wind_gust']:.1f} м/с\n"
+    f"🧭 {weather['wind_direction']}\n\n"
+
+    f"━━━━━━━━━━━━━━━━━━\n"
+    f"🎣 СТОИТ ЛИ ЕХАТЬ ЗА ГОЛЬЦОМ?\n"
+    f"━━━━━━━━━━━━━━━━━━\n\n"
+
+    f"{level} ({score}/100)\n\n"
+)
 
     if reasons:
-        text += "Причины:\n"
+        text += "📌 Почему такая оценка:\n"
         for reason in reasons:
             text += f"{reason}\n"
 
