@@ -119,8 +119,7 @@ async def get_weather():
 
     return weather
 
-
-   async def get_tides():
+    async def get_tides():
 
     url = (
        "https://tidesatlas.com/api/v1/tides" 
