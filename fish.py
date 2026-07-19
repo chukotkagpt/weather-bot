@@ -3,36 +3,37 @@ def fish_forecast(weather, tides=None):
     score = 50
     reasons = []
 
-    # Температура
+    # Температура воздуха
     if 4 <= weather["temp_now"] <= 12:
         score += 15
         reasons.append("✅ Подходящая температура")
+
     elif weather["temp_now"] > 18:
         score -= 15
         reasons.append("❌ Слишком тепло")
 
-    # Давление
-if 1008 <= weather["pressure"] <= 1022:
-    score += 8
+    # Давление (учитывается, но не выводится)
+    if 1008 <= weather["pressure"] <= 1022:
+        score += 8
 
-elif weather["pressure"] < 995:
-    score -= 10
+    elif weather["pressure"] < 995:
+        score -= 10
 
-# Влажность
-if weather["humidity"] > 80:
-    score += 3
+    # Влажность (учитывается, но не выводится)
+    if weather["humidity"] > 80:
+        score += 3
 
-elif weather["humidity"] < 45:
-    score -= 3
+    elif weather["humidity"] < 45:
+        score -= 3
 
-# Скорость ветра
-if 2 <= weather["wind_speed"] <= 7:
-    score += 15
-    reasons.append("✅ Умеренный ветер")
+    # Скорость ветра
+    if 2 <= weather["wind_speed"] <= 7:
+        score += 15
+        reasons.append("✅ Умеренный ветер")
 
-elif weather["wind_speed"] > 12:
-    score -= 20
-    reasons.append("❌ Сильный ветер")
+    elif weather["wind_speed"] > 12:
+        score -= 20
+        reasons.append("❌ Сильный ветер")
 
     # Порывы
     if weather["wind_gust"] > 15:
@@ -44,7 +45,7 @@ elif weather["wind_speed"] > 12:
         score += 10
         reasons.append("✅ Пасмурная погода")
 
-    # Приливы (будут работать после подключения tides.py)
+    # Приливы
     if tides:
         if tides.get("state") == "rising":
             score += 15
@@ -58,10 +59,10 @@ elif weather["wind_speed"] > 12:
             score -= 5
             reasons.append("🌊 Начался отлив")
 
-    # Ограничиваем диапазон
+    # Ограничиваем значение
     score = max(0, min(score, 100))
 
-    # Оценка
+    # Оценка клёва
     if score >= 85:
         level = "🟢 Отличный"
 
@@ -87,10 +88,13 @@ elif weather["wind_speed"] > 12:
         f"🌡 Сейчас: {weather['temp_now']:.1f}°C\n"
         f"📈 Днём: {weather['temp_max']:.1f}°C\n"
         f"📉 Ночью: {weather['temp_min']:.1f}°C\n\n"
+
         f"{weather['weather']}\n\n"
+
         f"💨 Ветер: {weather['wind_speed']:.1f} м/с\n"
         f"🌬 Порывы: {weather['wind_gust']:.1f} м/с\n"
         f"🧭 Направление: {weather['wind_direction']}\n\n"
+
         f"🎣 Морской голец\n"
         f"{level} ({score}/100)\n\n"
     )
@@ -100,6 +104,12 @@ elif weather["wind_speed"] > 12:
         for reason in reasons:
             text += f"{reason}\n"
 
-    text += f"\n⏰ Лучшее время:\n{best_time}"
+    if tides:
+        if tides.get("high"):
+            text += f"\n🌊 Прилив: {tides['high']}"
+        if tides.get("low"):
+            text += f"\n🌊 Отлив: {tides['low']}"
+
+    text += f"\n\n⏰ Лучшее время:\n{best_time}"
 
     return text
