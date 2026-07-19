@@ -96,7 +96,7 @@ async def send_weather():
     else:
         fish = "🔴 Слабый"
         
-            text = (
+    text = (
         f"🌅 Доброе утро!\n\n"
         f"📍 Певек\n"
         f"🌡 Температура: {temp:.1f}°C\n"
