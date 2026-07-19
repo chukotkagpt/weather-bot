@@ -28,5 +28,6 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          TIDES_API_KEY: ${{ secrets.TIDES_API_KEY }}
         run: |
           python bot.py
