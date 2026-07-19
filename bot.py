@@ -118,7 +118,42 @@ async def get_weather():
     }
 
     return weather
-    
+
+
+   async def get_tides():
+
+    url = (
+        "https://tidesatlas.com/api/v1/tides/point"
+        f"?lat={LAT}"
+        f"&lon={LON}"
+        "&days=1"
+    )
+
+    headers = {
+        "X-API-Key": TIDES_API_KEY
+    }
+
+    async with httpx.AsyncClient(timeout=20) as client:
+        response = await client.get(url, headers=headers)
+        response.raise_for_status()
+
+    data = response.json() 
+       extremes = data["extremes"]
+
+high_tide = None
+low_tide = None
+
+for tide in extremes:
+    if tide["type"] == "high" and high_tide is None:
+        high_tide = tide
+
+    if tide["type"] == "low" and low_tide is None:
+        low_tide = tide
+
+return {
+    "high": high_tide,
+    "low": low_tide
+}
     # ==========================
 # Предупреждения
 # ==========================
