@@ -67,16 +67,10 @@ async def send_weather():
     if -15 <= temp <= 10:
         score += 20
 
-    if 1005 <= pressure <= 1025:
-        score += 20
-
     if clouds >= 50:
         score += 15
     else:
         score += 5
-
-    if humidity >= 70:
-        score += 10
 
     if score >= 80:
         fish = "🟢 Отличный"
