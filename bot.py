@@ -26,8 +26,6 @@ async def send_weather():
     wind_deg = data["wind"].get("deg", 0)
     gust = data["wind"].get("gust")
     temp = data["main"]["temp"]
-    pressure = data["main"]["pressure"]
-    humidity = data["main"]["humidity"]
     clouds = data["clouds"]["all"]
     weather = data["weather"][0]["description"].lower()
 
@@ -97,8 +95,6 @@ async def send_weather():
         f"💨 Ветер: {wind_speed} м/с\n"
         f"{'🌬 Порывы: ' + str(gust) + ' м/с\n' if gust else ''}"
         f"🧭 Направление: {direction}\n"
-        f"💧 Влажность: {humidity}%\n"
-        f"📊 Давление: {pressure} гПа\n\n"
         f"🎣 Клёв гольца: {fish} ({score}/100)\n\n"
         f"{warning}"
     )
