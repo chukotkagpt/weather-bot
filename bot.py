@@ -123,7 +123,7 @@ async def get_weather():
    async def get_tides():
 
     url = (
-        "https://tidesatlas.com/api/v1/tides/point"
+       "https://tidesatlas.com/api/v1/tides" 
         f"?lat={LAT}"
         f"&lon={LON}"
         "&days=1"
